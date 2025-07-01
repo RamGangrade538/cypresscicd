@@ -24,3 +24,10 @@ jobs:
 
       - name: 🚀 Run All Cypress Tests
         run: npx cypress run
+
+        
+      - name: 📤 Upload HTML report
+        uses: actions/upload-artifact@v4
+        with:
+          name: Cypress Report
+          path: cypress/reports
