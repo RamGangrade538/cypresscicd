@@ -1,0 +1,46 @@
+name: Cypress Tests CI/CD
+
+on:
+  push:
+    branches:
+      - master
+      - smoke
+      - sanity
+      - regression
+  pull_request:
+    branches:
+      - master
+      - smoke
+      - sanity
+      - regression
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⬇️ Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🧰 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      - name: 🚀 Run Cypress Tests Based on Branch
+        run: |
+          BRANCH_NAME=${GITHUB_REF##*/}
+          echo "Running tests for branch: $BRANCH_NAME"
+
+          if [[ "$BRANCH_NAME" == "smoke" ]]; then
+            npx cypress run --spec "cypress/e2e/smoke/*.cy.js"
+          elif [[ "$BRANCH_NAME" == "sanity" ]]; then
+            npx cypress run --spec "cypress/e2e/sanity/*.cy.js"
+          elif [[ "$BRANCH_NAME" == "regression" ]]; then
+            npx cypress run --spec "cypress/e2e/regression/*.cy.js"
+          else
+            echo "Defaulting to master branch - run all tests"
+            npx cypress run
