@@ -1,0 +1,14 @@
+# Cypress test output
+cypress/screenshots/
+cypress/videos/
+cypress/reports/
+
+# Node packages
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+npm-debug.log
