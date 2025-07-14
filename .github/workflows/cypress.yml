@@ -31,3 +31,23 @@ jobs:
         with:
           name: Cypress Report
           path: cypress/reports
+
+      # - name: Notify Teams - SUCCESS
+      #   if: success()
+      #   run: |
+      #     curl -H 'Content-Type: application/json' \
+      #     -d '{
+      #       "title": "✅ GitHub Action Success",
+      #       "text": "✔️ All tests passed in **${{ github.repository }}** on branch **${{ github.ref }}**.\n\nCommit: `${{ github.event.head_commit.message }}`\nAuthor: `${{ github.actor }}`\n👉 [View Logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"
+      #     }' \
+      #     ${{ secrets.TEAMS_WEBHOOK_URL }}
+
+      # - name: Notify Teams - FAILURE
+      #   if: failure()
+      #   run: |
+      #     curl -H 'Content-Type: application/json' \
+      #     -d '{
+      #       "title": "🚨 GitHub Action Failed",
+      #       "text": "❌ Some tests failed in **${{ github.repository }}** on branch **${{ github.ref }}**.\n\nCommit: `${{ github.event.head_commit.message }}`\nAuthor: `${{ github.actor }}`\n👉 [View Logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"
+      #     }' \
+      #     ${{ secrets.TEAMS_WEBHOOK_URL }}
